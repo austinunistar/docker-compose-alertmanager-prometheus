@@ -1,0 +1,5 @@
+- hosts: devops-test1
+  become: yes
+
+    - role: ap/docker
+      tags: docker

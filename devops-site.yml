@@ -1,0 +1,11 @@
+---
+- hosts: all
+  pre_tasks:
+    - name: check target is {{ hostname }} or localhost
+      fail:
+        msg: target is {{ ansible_hostname }}
+      tags: always
+      when:
+        - ansible_hostname != hostname
+        - ansible_hostname != "localhost"
+- import_playbook: manage-docker.yml
