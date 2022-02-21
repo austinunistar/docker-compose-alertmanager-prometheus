@@ -13,6 +13,7 @@ alerting:
   alertmanagers:
   - static_configs:
     - targets: ["alertmanager:9093"]
+      # - alertmanager:9093
 
 # Load rules once and periodically evaluate them according to the global 'evaluation_interval'.
 rule_files:
@@ -22,15 +23,9 @@ rule_files:
 
 scrape_configs:
   - job_name: 'prometheus'
-    scrape_interval: 5s
-    static_configs:
-      - targets:
-         - prometheus:9090
-         - node-exporter:9100
-         - alertmanager:9093
 
-  - job_name: 'cadvisor'
+    # Override the global default and scrape targets from this job every 5 seconds.
     scrape_interval: 5s
+
     static_configs:
-      - targets:
-         - cadvisor:8080
+      - targets: ['prometheus:9090','cadvisor:8080','node-exporter:9100']

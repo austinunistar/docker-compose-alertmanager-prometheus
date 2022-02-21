@@ -5,7 +5,7 @@ groups:
     expr: up == 0
     for: 5m
     labels:
-      user: austinchang
+      user: jason
     annotations:
       summary: "Cadvisor Instance down"
       description: "{{$labels.instance}}: down for more than 1 minutes."
