@@ -1,0 +1,86 @@
+---
+- name: Install required pkgs
+  yum:
+    name: "{{ item }}"
+    state: latest
+  with_items:
+    - yum-utils
+    - device-mapper-persistent-data
+    - lvm2
+    - epel-release
+
+- name: Add Docker repo
+  shell: ' curl -L "https://download.docker.com/linux/centos/docker-ce.repo" -o /etc/yum.repos.d/docker-ce.repo '
+
+- name: Remove docker
+  yum:
+    name: "{{ item }}"
+    state: absent
+  with_items:
+    - docker
+    - docker-common
+    - docker-selinux
+    - docker-engine
+    - docker*
+
+- name: Install docker-ce-18.06.3.ce-3.el7
+  yum:
+    name: docker-ce-18.06.3.ce-3.el7
+    state: present
+
+- name: Start and Enable Docker service
+  service:
+    name: docker
+    state: started
+    enabled: yes
+
+- name: Add docker-compose
+  get_url:
+    url: "https://github.com/docker/compose/releases/download/{{ docker_compose_version }}/docker-compose-Linux-x86_64"
+    dest: /usr/local/bin/docker-compose
+    mode: a+x
+
+- name: Users | adding docker users (for use without sudo)
+  user:
+    name: "{{ group_deploy_user }}"
+    append: yes
+    groups: docker
+  become: true
+
+- name: Add daemon json file
+  file:
+    path: /etc/docker/daemon.json
+    state: touch
+
+- name: modify daemon.json
+  template:
+    src: daemon_json.j2
+    dest: /etc/docker/daemon.json
+    mode: 0644
+
+- name: restart docker
+  service:
+    name: docker
+    state: restarted
+    enabled: yes
+
+- name: mkdir /opt/docker-apps
+  file:
+    path: /opt/docker-apps
+    owner: "{{ group_deploy_user }}"
+    group: "{{ group_deploy_user }}"
+    state: directory
+    mode: 0755
+    recurse: yes
+  tags: apps
+
+
+#register zabbix variable
+#- include_role:
+#    name: system/system_roles/zabbix_client/zabbix_register
+#  tags: zabbix_client
+#  vars:
+#    template_list:
+#      - "Template App Kafka Service"
+#    monitor_port_list:
+#      - "2181,5601,9092,9200"
