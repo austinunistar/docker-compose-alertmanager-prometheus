@@ -9,25 +9,6 @@
     - lvm2
     - epel-release
 
-- name: Add Docker repo
-  shell: ' curl -L "https://download.docker.com/linux/centos/docker-ce.repo" -o /etc/yum.repos.d/docker-ce.repo '
-
-- name: Remove docker
-  yum:
-    name: "{{ item }}"
-    state: absent
-  with_items:
-    - docker
-    - docker-common
-    - docker-selinux
-    - docker-engine
-    - docker*
-
-- name: Install docker-ce-18.06.3.ce-3.el7
-  yum:
-    name: docker-ce-18.06.3.ce-3.el7
-    state: present
-
 - name: Start and Enable Docker service
   service:
     name: docker
