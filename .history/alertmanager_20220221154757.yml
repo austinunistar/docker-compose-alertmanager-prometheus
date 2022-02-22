@@ -2,7 +2,7 @@ global:
   resolve_timeout: 10s   # 未收到標記告警通知，等待 timeout 時間之後事件標記為 resolve。
 
 route:
-  group_wait: 10s       # 最初即第一次等待多久時間發送一組警報的通知
+  group_wait: 30s       # 最初即第一次等待多久時間發送一組警報的通知
   group_interval: 1m    # 重複發送告警的間隔時間
   repeat_interval: 1m   # 發送重覆警报的周期，對於email配置中，此项不可以设置過低，否则将會由於郵件發送太多频繁，被smtp服務器拒絕
   group_by: ['alertname']       # 警報器分組依據
@@ -17,4 +17,4 @@ receivers:
         title: "{{.CommonAnnotations.summary}}"
         title_link: "{{.CommonAnnotations.link}}"
         color: "{{.CommonAnnotations.color}}"
-        send_resolved: true 1
+        send_resolved: true
