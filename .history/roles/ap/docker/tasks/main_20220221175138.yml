@@ -1,7 +1,7 @@
 ---
 - name: Install required pkgs
   yum:
-    name: "{{ item }}"
+    name: "{{ name }}"
     state: latest
   loop:
     - yum-utils
