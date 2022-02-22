@@ -1,0 +1,11 @@
+---
+# deploy services
+- name: create folders
+  file:
+    path: "{{ item }}"
+    state: directory
+    owner: root
+    group: root
+    mode: 777
+  loop:
+    - "/opt/grafana_data/"
