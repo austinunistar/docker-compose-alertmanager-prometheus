@@ -3,7 +3,3 @@
 devops-test1: "10.1.106.40"
 devops-test2: "10.1.106.41"
 devops-test3: "10.1.106.42"
-
-# authorized_keys
-authorized_user_key_list:
-  - { 'user': 'root', 'key': '{{ env_rsakey_public }}' }
