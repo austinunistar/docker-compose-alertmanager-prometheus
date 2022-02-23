@@ -8,8 +8,6 @@
       when:
         - ansible_hostname != hostname
         - ansible_hostname != "localhost"
-    - name: include secret
-      include_vars: file=inventory/devops/config/secret.yml
       tags: always
     - name: include vars
       include_vars: file=inventory/devops/config/server.yml
