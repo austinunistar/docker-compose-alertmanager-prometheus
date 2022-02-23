@@ -1,5 +1,4 @@
 ---
-# deploy services
 - name: Create Folders
   file:
     path: "{{ item }}"
@@ -8,24 +7,22 @@
     group: root
     mode: 777
   loop:
-    - "/opt/grafana_data/"
+    - "/var/lib/grafama/"
     - "/var/lib/jenkins"
     - "/var/admin"
 
-- name: clone docker-compose
-  ansible.builtin.git:
-    repo: https://github.com/austinunistar/docker-compose-alertmanager-prometheus.git
-    dest: /var/admin
-    single_branch: yes
-    version: master
+- name: fix cadvisor issue
+  shell: "{{ item }}"
+  with_items:
+    - mount -o remount,rw /sys/fs/cgroup
+    - ln -s /sys/fs/cgroup/cpu,cpuacct /sys/fs/cgroup/cpuacct,cpu
+  ignore_errors: yes
 
-
-
-- name: Run `docker-compose up` again
-  community.docker.docker_compose:
-    project_src: /var/admin/docker-compose-alertmanager-prometheus/docker-compose.yml
-    state: present
-
+- git:
+    repo: 'https://github.com/austinunistar/docker-compose-alertmanager-prometheus.git'
+    dest: /var/admin/docker-compose-alertmanager-prometheus
 
 - name: Start docker-compose
-  shell: 'cd /var/admin/docker-compose-alertmanager-prometheus';'docker-compose up -d'
+  shell: 'docker-compose up -d'
+  args:
+    chdir: '/var/admin/docker-compose-alertmanager-prometheus'
