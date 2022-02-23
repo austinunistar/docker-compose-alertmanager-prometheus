@@ -1,6 +1,6 @@
 ---
 # deploy services
-- name: create folders
+- name: Create Folders
   file:
     path: "{{ item }}"
     state: directory
@@ -9,3 +9,8 @@
     mode: 777
   loop:
     - "/opt/grafana_data/"
+    - "/var/lib/jenkins"
+
+- name: Start docker-compose
+  shell: |
+  docker-compose up -d

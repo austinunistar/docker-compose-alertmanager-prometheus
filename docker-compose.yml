@@ -97,7 +97,7 @@ services:
       - backend
     container_name: jenkins
     volumes:
-      - '/data/docker/jenkins:/var/lib/jenkins_home'
+      - '/data/docker/jenkins:/var/lib/jenkins'
 
 networks:
   backend:
