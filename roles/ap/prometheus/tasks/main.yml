@@ -26,8 +26,12 @@
   args:
     chdir: '/var/admin/docker-compose-alertmanager-prometheus'
 
-- name: grant privilege to folder
+- name: Grant privilege to folder
   file:
     path: "/var/admin/docker-compose-alertmanager-prometheus/grafana"
     mode: 777
-  notify: docker-compose restart grafana
+
+- name: Restart docker-compose
+  shell: 'docker-compose restart grafana'
+  args:
+    chdir: '/var/admin/docker-compose-alertmanager-prometheus'

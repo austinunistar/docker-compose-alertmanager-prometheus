@@ -1,3 +1,0 @@
----
-- name: docker-compose restart grafana
-  shell: "docker-compose restart grafana"
