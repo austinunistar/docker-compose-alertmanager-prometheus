@@ -10,7 +10,7 @@
         - ansible_hostname != "localhost"
     - name: include vars
       include_vars: file={{ item }}
-      with_fileglob: "inventory/devops/*"
+      with_fileglob: "inventory/devops/config/server.yml"
       tags: always
 
 - import_playbook: manage-docker.yml
