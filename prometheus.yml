@@ -22,9 +22,17 @@ scrape_configs:
          - prometheus:9090
          - node-exporter:9100
          - alertmanager:9093
-
+         - grafana:3000
+         
   - job_name: 'cadvisor'
     scrape_interval: 5s
     static_configs:
       - targets:
          - cadvisor:8080
+
+  - job_name: 'jenkins'
+    scrape_interval: 5s
+    metrics_path: "/prometheus"
+    static_configs:
+      - targets:
+         - 10.1.106.40:80

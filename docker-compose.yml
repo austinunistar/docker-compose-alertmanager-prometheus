@@ -11,6 +11,8 @@ services:
       - ./load_over.yml:/etc/prometheus/load_over.yml
     ports:
       - 9090:9090
+    networks:
+      - backend
     links:
       - node-exporter:node-exporter
 
@@ -20,6 +22,8 @@ services:
     restart: unless-stopped
     ports:
       - 9093:9093
+    networks:
+      - backend
     volumes:
       - ./alertmanager.yml:/etc/alertmanager/alertmanager.yml
 
@@ -40,12 +44,16 @@ services:
       - /:/rootfs
     ports:
       - 9100:9100
+    networks:
+      - backend
 
   cadvisor:
     image: google/cadvisor:latest
     container_name: cadvisor
     ports:
       - 8080:8080
+    networks:
+      - backend
     restart: unless-stopped
     volumes:
       - /:/rootfs:ro
@@ -54,16 +62,17 @@ services:
       - /var/lib/docker/:/var/lib/docker:ro
 
   grafana:
-    image: grafana/grafana:8.0.6
+    image: grafana/grafana
     container_name: grafana
     restart: unless-stopped
     links:
       - prometheus:prometheus
     ports:
       - 3000:3000
-    user: '1001'
+    networks:
+      - backend
     volumes:
-      - "/opt/grafana_data:/var/lib/grafana"
+      - ./grafana:/var/lib/grafana
     environment:
       GF_SECURITY_ADMIN_USER: admin
       GF_SECURITY_ADMIN_PASSWORD: 4rfv%TGB6yhn
@@ -84,7 +93,11 @@ services:
     ports:
       - 80:8080
       - 50000:50000
+    networks:
+      - backend
     container_name: jenkins
     volumes:
-      - '/data/docker/jenkins:/var/jenkins_home'
-  
+      - '/data/docker/jenkins:/var/lib/jenkins_home'
+
+networks:
+  backend:
