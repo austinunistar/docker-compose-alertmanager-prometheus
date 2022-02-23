@@ -9,8 +9,10 @@
         - ansible_hostname != hostname
         - ansible_hostname != "localhost"
     - name: include vars
-      include_vars: file={{ item }}
-      with_fileglob: "inventory/devops/config/server.yml"
+      include_vars: file=inventory/devops/config/server.yml
+      tags: always
+    - name: include secret
+      include_vars: file=inventory/devops/config/secret.yml
       tags: always
 
 - import_playbook: manage-docker.yml

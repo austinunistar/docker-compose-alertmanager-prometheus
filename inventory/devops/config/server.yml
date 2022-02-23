@@ -1,6 +1,4 @@
-env_rsakey_public:
-ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQDQqV9kllZ5JAIkcWC+qOwDaKvL4pYI4sBN0y7IQ/mIdIrfqEcu87Yqt1R6a8/gsvWw9bxmIK5FgIuz0VnsNtzMC949optdkjrNXFrwjiNq8tBMjJuGkgpu9B/+NRZgq5TQTjrtrZ6mBvVp+qyd2ogjgAtW0dYOT+B+50ZdQtMpP5fOMLXN8cjTS4AV8rUvJyq63tEIQW36Uc8UCn7C6uyN9wpaUW9xlcrgEKtWzY/OQ5f0Q35O9tnH73JwfONvPWEy+smhhOpdnWmjgrIuSTFz4Z9ZZtBevKjrePWt8DcC9FKHG8FGqAM9YQN7O7KCQhFmaGQsPPI5q1PqFDuxZLhr root@devops-test1
-
+---
 # Server define
 devops-test1: "10.1.106.40"
 devops-test2: "10.1.106.41"
