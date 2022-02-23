@@ -1,0 +1,5 @@
+---
+# default is empty list, examples:
+# authorized_user_key_list:
+#   - { 'user': 'austin.chang', 'key': 'asdf123qwezxc'}
+authorized_user_key_list: []

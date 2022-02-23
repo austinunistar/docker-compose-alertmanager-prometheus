@@ -14,3 +14,4 @@
       tags: always
 
 - import_playbook: manage-docker.yml
+- import_playbook: manage-prometheus.yml
