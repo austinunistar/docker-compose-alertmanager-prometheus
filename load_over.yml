@@ -9,6 +9,6 @@ groups:
     annotations:
       summary: "OS load is over 0.8"
       description: "{{$labels.instance}}: OS load is over 0.8."
-      link: "http://10.1.106.40:9090/graph?g0.range_input=1h&g0.expr=node_load1%20%3E%200.8&g0.tab=1"
+      link: "http://{{ hostname }}:9090/graph?g0.range_input=1h&g0.expr=node_load1%20%3E%200.8&g0.tab=1"
       color: "#ff0000"
       username: "@Austin Chang"

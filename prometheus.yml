@@ -35,4 +35,4 @@ scrape_configs:
     metrics_path: "/prometheus"
     static_configs:
       - targets:
-         - 10.1.106.40:80
+         - {{ hostname }}:80
