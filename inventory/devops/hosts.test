@@ -1,3 +1,3 @@
-{{ hostname }}  ansible_ssh_user=root ansible_ssh_port=22  hostname=devops-test1
+10.1.106.40  ansible_ssh_user=root ansible_ssh_port=22  hostname=devops-test1
 10.1.106.41  ansible_ssh_user=root ansible_ssh_port=22  hostname=devops-test2
 10.1.106.42  ansible_ssh_user=root ansible_ssh_port=22  hostname=devops-test3`
