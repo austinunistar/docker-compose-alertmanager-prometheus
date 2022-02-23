@@ -10,6 +10,22 @@
   loop:
     - "/opt/grafana_data/"
     - "/var/lib/jenkins"
+    - "/var/admin"
+
+- name: clone docker-compose
+  ansible.builtin.git:
+    repo: https://github.com/austinunistar/docker-compose-alertmanager-prometheus.git
+    dest: /var/admin
+    single_branch: yes
+    version: master
+
+
+
+- name: Run `docker-compose up` again
+  community.docker.docker_compose:
+    project_src: /var/admin/docker-compose-alertmanager-prometheus/docker-compose.yml
+    state: present
+
 
 - name: Start docker-compose
-  shell: 'docker-compose up -d'
+  shell: 'cd /var/admin/docker-compose-alertmanager-prometheus';'docker-compose up -d'
