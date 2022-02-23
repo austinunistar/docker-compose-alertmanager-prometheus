@@ -29,7 +29,9 @@
 - name: Grant privilege to folder
   file:
     path: "/var/admin/docker-compose-alertmanager-prometheus/grafana"
-    mode: 777
+    state: directory
+    recurse: yes
+    mode: 0777
 
 - name: Restart docker-compose
   shell: 'docker-compose restart grafana'
